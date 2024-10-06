@@ -25,9 +25,8 @@ def pascal_triangle(n):
     k = [[1]]
     for i in range(1, n):
         row = [1]
-        for j in range(len(k[i - 1]) - 1):
-            curr = k[i - 1]
-            row.append(k[i - 1][j] + k[i - 1][j + 1])
-            row.append(1)
+        for j in range(1, len(k[i - 1])): 
+            row.append(k[i - 1][j - 1] + k[i - 1][j])
+        row.append(1)
         k.append(row)
     return k
