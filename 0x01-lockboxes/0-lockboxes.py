@@ -9,7 +9,6 @@ def canUnlockAll(boxes):
     Determines whether a type list(list) locked boxes can all be unlocked
     based on keys that can be accessed.
     """
-    
     # Check if list is empty
     if len(boxes) == 0:
         return False
@@ -17,7 +16,7 @@ def canUnlockAll(boxes):
     # Check if input is a list
     if (type(boxes)) is not list:
         return False
-	
+
     for x in range(1, len(boxes) - 1):
         checked_boxes = False
         for idx in range(len(boxes)):
