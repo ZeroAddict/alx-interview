@@ -1,10 +1,5 @@
 #!/usr/bin/python3
 
-"""
-Log Parsing
-Write a script that reads stdin line by line and computes metrics.
-"""
-
 import sys
 import re
 
@@ -17,15 +12,6 @@ file_size = 0
 status_code_counts = {code: 0 for code in STATUS_CODES}
 
 def extract_input(input_line):
-    """
-    Extracts sections of a line of an HTTP request log.
-
-    Args:
-    input_line (str): HTTP request log line.
-
-    Returns:
-    dict: Extracted log information.
-    """
     pattern = (
         r'\s*(?P<ip>\S+)\s*',
         r'\s*\[(?P<date>\d+\-\d+\-\d+ \d+:\d+:\d+\.\d+)\]',
@@ -48,12 +34,6 @@ def extract_input(input_line):
     return info
 
 def update_metrics(info):
-    """
-    Update file size and status code counts.
-
-    Args:
-    info (dict): Extracted log information.
-    """
     global file_size
     global status_code_counts
 
@@ -64,15 +44,12 @@ def update_metrics(info):
         status_code_counts[status_code] += 1
 
 def print_log_parser():
-    """
-    Print log statistics.
-    """
     print("File size: {}".format(file_size))
     for code, count in sorted(status_code_counts.items()):
         if count > 0:
             print("{}: {}".format(code, count))
 
-def main():
+def run():
     count = 0
 
     for line in sys.stdin:
@@ -89,4 +66,7 @@ def main():
     print_log_parser()
 
 if __name__ == "__main__":
-    main()
+    try:
+        run()
+    except KeyboardInterrupt:
+        print_log_parser()
