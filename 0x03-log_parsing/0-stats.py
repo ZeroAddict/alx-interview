@@ -1,22 +1,25 @@
+
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
 """
 Log Parsing
+
 Write a script that reads stdin line by line and computes metrics.
 """
 
-import sys
 import re
+import sys
 
 # Constants
 PRINT_INTERVAL = 10
 STATUS_CODES = ['200', '301', '400', '401', '403', '404', '405', '500']
 
 # Initialize metrics
-file_size = 0
+file_size_total = 0
 status_code_counts = {code: 0 for code in STATUS_CODES}
 
-def extract_input(input_line):
+def extract_input_line(input_line: str) -> dict:
     """
     Extracts sections of a line of an HTTP request log.
 
@@ -47,37 +50,37 @@ def extract_input(input_line):
 
     return info
 
-def update_metrics(info):
+def update_metrics(info: dict) -> None:
     """
     Update file size and status code counts.
 
     Args:
     info (dict): Extracted log information.
     """
-    global file_size
+    global file_size_total
     global status_code_counts
 
-    file_size += info['file_size']
+    file_size_total += info['file_size']
     status_code = info['status_code']
 
     if status_code in STATUS_CODES:
         status_code_counts[status_code] += 1
 
-def print_log_parser():
+def print_log_parser() -> None:
     """
     Print log statistics.
     """
-    print("File size: {}".format(file_size))
+    print("File size: {}".format(file_size_total))
     for code, count in sorted(status_code_counts.items()):
         if count > 0:
             print("{}: {}".format(code, count))
 
-def main():
+def run() -> None:
     count = 0
 
     for line in sys.stdin:
         line = line.strip()
-        info = extract_input(line)
+        info = extract_input_line(line)
 
         if info['status_code'] and info['file_size']:
             update_metrics(info)
@@ -89,4 +92,4 @@ def main():
     print_log_parser()
 
 if __name__ == "__main__":
-    main()
+    run()
