@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-def determine_prime_game_winner(x, nums):
+def isWinner(x, nums):
     """
     Determine the winner of the prime game.
 
