@@ -28,7 +28,7 @@ def determine_prime_game_winner(x, nums):
             for multiple in range(potential_prime ** 2, max_number + 1, potential_prime):
                 prime_numbers[multiple] = False
 
-    # Count the number of prime numbers less than each input number
+    # Count the number of prime numbers less than < each input number
     for num in nums:
         prime_count = sum(prime_numbers[2:num + 1])
         if prime_count % 2 == 0:
