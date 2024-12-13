@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-def isWinner(x, nums):
+def is_winner(x, nums):
     """
     Determine the winner of the prime game.
 
@@ -11,30 +11,22 @@ def isWinner(x, nums):
     Returns:
         str: The winner of the game, either 'Maria' or 'Ben', or None if it's a tie.
     """
-
     if x < 1 or not nums:
         return None
 
-    maria_wins = 0
-    ben_wins = 0
-
-    # Generate a list of prime numbers up to the maximum number in the input list
     max_number = max(nums)
     prime_numbers = [True] * (max_number + 1)
     prime_numbers[0] = prime_numbers[1] = False
 
+    # Filter out non-prime numbers
     for x in range(2, int(max_number ** 0.5) + 1):
         if prime_numbers[x]:
             for multiple in range(x ** 2, max_number + 1, x):
                 prime_numbers[multiple] = False
 
-    # Count the number of prime numbers less than < each input number
-    for num in nums:
-        prime_count = sum(prime_numbers[2:num + 1])
-        if prime_count % 2 == 0:
-            ben_wins += 1
-        else:
-            maria_wins += 1
+    # Count prime numbers less than each input number
+    maria_wins = sum(1 for num in nums if sum(prime_numbers[2:num + 1]) % 2 != 0)
+    ben_wins = len(nums) - maria_wins
 
     if maria_wins == ben_wins:
         return None
