@@ -2,6 +2,7 @@
 
 """ Module for solving the Prime Game question """
 
+
 def isWinner(x, nums):
     """
     Determine the winner of the Prime Game.
